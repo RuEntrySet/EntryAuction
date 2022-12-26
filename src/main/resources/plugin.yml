@@ -1,0 +1,10 @@
+main: ru.entryset.auction.main.Main
+name: EntryAuction
+version: 1.0
+api-version: 1.13
+author: EntrySet
+depend: [Vault]
+softdepend: [PlaceholderAPI]
+commands:
+  ah:
+    aliases: [auc, auction, entryauction]

@@ -1,0 +1,104 @@
+items:
+  back:
+    material: 'NETHER_STAR'
+    data: 0
+    amount: 1
+    name: '&bВернуться назад'
+  lastPage:
+    material: 'ARROW'
+    data: 0
+    amount: 1
+    name: '&bПредыдущая страница'
+  nextPage:
+    material: 'ARROW'
+    data: 0
+    amount: 1
+    name: '&bСледующая страница'
+  info:
+    material: 'BOOK'
+    data: 0
+    amount: 1
+    name: '&bКак пользоваться аукционом?'
+    lore:
+      - '&f'
+      - ' &fЧтобы выставлять предметы на продажу'
+      - ' &fнужно просто написать команду:'
+      - ' &b/ah sell <цена>'
+      - '&f'
+      - ' &fЕсли вы хотите выставить предметы'
+      - ' &fбез поштучной возможности покупки:'
+      - ' &b/ah sell <цена> full'
+      - '&f'
+      - ' &fЕсли вы хотите найти предметы'
+      - ' &fопределенного игрока, используйте:'
+      - ' &b/ah search <игрок>'
+  infoSell:
+    material: 'BOOK'
+    data: 0
+    amount: 1
+    name: '&bЧто тут делать?'
+    lore:
+      - '&f'
+      - ' &fЭто меню с вашими текущими'
+      - ' &fпредметами на продаже.'
+      - ' &fЗдесь вы можете снять свои'
+      - ' &fпредметы с продажи.'
+  infoExpired:
+    material: 'BOOK'
+    data: 0
+    amount: 1
+    name: '&bЧто тут делать?'
+    lore:
+      - '&f'
+      - ' &fЭто меню, где вы'
+      - ' &fможете вернуть все'
+      - ' &fпредметы у которых'
+      - ' &fистекло время продажи.'
+  help:
+    material: 'NETHER_STAR'
+    data: 0
+    amount: 1
+    name: '&bПомощь по аукциону'
+    lore:
+      - '&f'
+      - ' &bЧто это такое?'
+      - ' &fЭто аукцион, на нём ты можешь с'
+      - ' &fлёгкостью выставлять любые вещи'
+      - ' &fна продажу, а любой другой игрок'
+      - ' &fсможет их купить'
+      - '&f'
+  update:
+    material: 'DIAMOND'
+    data: 0
+    amount: 1
+    name: '&bОбновить аукцион'
+  sellItems:
+    material: 'CHEST'
+    data: 0
+    amount: 1
+    name: '&bПредметы на продаже'
+    lore:
+      - '&f'
+      - ' &bКликните, чтобы посмотреть'
+      - ' &fсписок ваших предметов,'
+      - ' &fнаходящихся на продаже'
+  sellExpired:
+    material: 'ENDER_CHEST'
+    data: 0
+    amount: 1
+    name: '&bИстекшие товары'
+    lore:
+      - '&f'
+      - ' &bКликните, чтобы посмотреть'
+      - ' &fсписок ваших предметов,'
+      - ' &fкоторые не были проданы'
+  sort:
+    material: 'HOPPER'
+    data: 0
+    amount: 1
+    name: '&bСортировка'
+  category:
+    material: 'CHEST_MINECART'
+    data: 0
+    amount: 1
+    name: '&bКатегории предметов'

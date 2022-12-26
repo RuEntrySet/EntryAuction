@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS `auction_money` (`id` INT(50) NOT NULL AUTO_INCREMENT, `player` VARCHAR(50) NOT NULL,
+`money` FLOAT(50) NOT NULL, PRIMARY KEY (`id`, `player`)) ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `auction_top` ( `player` VARCHAR(50) NOT NULL,
+`revenue` FLOAT(50) NOT NULL, PRIMARY KEY (`player`)) ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `auction` (`id` INT(50) NOT NULL, `hash` LONGTEXT, PRIMARY KEY (`id`)) ENGINE = InnoDB;
