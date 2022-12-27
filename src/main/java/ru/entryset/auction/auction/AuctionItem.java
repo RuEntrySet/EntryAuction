@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
+import ru.entryset.api.tag.ItemTag;
 import ru.entryset.api.tools.Messager;
 import ru.entryset.auction.hook.Money;
 import ru.entryset.auction.item.Convector;
@@ -14,6 +15,7 @@ import ru.entryset.auction.main.Main;
 import ru.entryset.auction.mysql.MySQLExecutor;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Duration;
@@ -59,8 +61,13 @@ public class AuctionItem implements Serializable {
     }
 
     public ItemStack getAuctionItem(){
-        ItemStack st = Convector.deserializeItemStack(getStack());
-        Main.addTag(st, getUuid().toString());
+        ItemStack des = Convector.deserializeItemStack(getStack());
+        ItemStack st = null;
+        try {
+            st = ItemTag.setTag(Main.getInstance(), des, Main.AUCTION_ITEM, getUuid().toString());
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
 
         ItemMeta meta = st.getItemMeta();
         List<String> lore = new ArrayList<>();
@@ -99,8 +106,13 @@ public class AuctionItem implements Serializable {
     }
 
     public ItemStack getAuctionItemExpired(){
-        ItemStack st = Convector.deserializeItemStack(getStack());
-        Main.addTag(st, getUuid().toString());
+        ItemStack des = Convector.deserializeItemStack(getStack());
+        ItemStack st = null;
+        try {
+            st = ItemTag.setTag(Main.getInstance(), des, Main.AUCTION_ITEM, getUuid().toString());
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
+            e.printStackTrace();
+        }
 
         ItemMeta meta = st.getItemMeta();
         List<String> lore = new ArrayList<>();

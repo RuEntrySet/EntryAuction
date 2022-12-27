@@ -98,7 +98,7 @@ items:
     amount: 1
     name: '&bСортировка'
   category:
-    material: 'CHEST_MINECART'
+    material: 'STORAGE_MINECART'
     data: 0
     amount: 1
     name: '&bКатегории предметов'

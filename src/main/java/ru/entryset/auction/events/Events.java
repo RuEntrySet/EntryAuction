@@ -1,5 +1,6 @@
 package ru.entryset.auction.events;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,12 +9,12 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import ru.entryset.api.tag.ItemTag;
 import ru.entryset.auction.auction.*;
 import ru.entryset.auction.main.Main;
 
-import java.util.Objects;
+import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
-
 public class Events implements Listener {
 
     @EventHandler
@@ -80,10 +81,15 @@ public class Events implements Listener {
                 }
                 return;
             }
-            if(e.getCurrentItem() == null || e.getCurrentItem().getType().isAir()){
+            if(e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR){
                 return;
             }
-            UUID id = UUID.fromString(Objects.requireNonNull(Main.getTag(e.getCurrentItem())));
+            UUID id = null;
+            try {
+                id = UUID.fromString(ItemTag.getTag(Main.getInstance(), e.getCurrentItem(), Main.AUCTION_ITEM));
+            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException noSuchMethodException) {
+                noSuchMethodException.printStackTrace();
+            }
             if(!Main.auction.containsKey(id)){
                 auction.update();
                 if(auction.getType() == AuctionType.EXPIRED){
@@ -151,10 +157,15 @@ public class Events implements Listener {
             }
             return;
         }
-        if(e.getCurrentItem() == null || e.getCurrentItem().getType().isAir()){
+        if(e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR){
             return;
         }
-        UUID id = UUID.fromString(Objects.requireNonNull(Main.getTag(e.getCurrentItem())));
+        UUID id = null;
+        try {
+            id = UUID.fromString(ItemTag.getTag(Main.getInstance(), e.getCurrentItem(), Main.AUCTION_ITEM));
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException noSuchMethodException) {
+            noSuchMethodException.printStackTrace();
+        }
         if(!Main.auction.containsKey(id)){
             Main.messager.sendMessage(player, Main.config.getMessage("no_item"));
             auction.update();
