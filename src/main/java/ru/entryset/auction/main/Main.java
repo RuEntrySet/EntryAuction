@@ -2,9 +2,6 @@ package ru.entryset.auction.main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-//import org.bukkit.persistence.PersistentDataContainer;
-//import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import redis.clients.jedis.JedisPubSub;
@@ -12,7 +9,6 @@ import ru.entryset.api.configuration.Config;
 import ru.entryset.api.configuration.Configuration;
 import ru.entryset.api.database.Database;
 import ru.entryset.api.sync.redis.Redis;
-import ru.entryset.api.tools.Logger;
 import ru.entryset.api.tools.Messager;
 import ru.entryset.auction.auction.Auction;
 import ru.entryset.auction.auction.AuctionItem;
@@ -99,8 +95,6 @@ public class Main extends JavaPlugin {
             JedisPubSub jedisPubSub = new JedisPubSub() {
                 @Override
                 public void onMessage(String channel, String message) {
-                    Logger logger = new Logger(Main.getInstance());
-                    logger.enable(channel + "|" + message);
                     if (channel.equals("EntryAuction")) {
                         String[] parts = message.split("=");
                         switch (parts[0]){
@@ -168,136 +162,5 @@ public class Main extends JavaPlugin {
     public static Main getInstance() {
         return Main.instance;
     }
-
-//    public static void addTag(ItemStack stack, String type){
-//        if(Messager.getVersion() > 13){
-//            ItemMeta meta = stack.getItemMeta();
-//            Objects.requireNonNull(meta).getPersistentDataContainer().set(Main.getInstance().AUCTION_ITEM, PersistentDataType.STRING, type);
-//            stack.setItemMeta(meta);
-//            return;
-//        }
-//        net.minecraft.server.v1_12_R1.ItemStack nms = CraftItemStack.asNMSCopy(stack);
-//        NBTTagCompound compound = (nms.hasTag()) ? nms.getTag() : new NBTTagCompound();
-//        Objects.requireNonNull(compound).set("AUCTION_ITEM", new NBTTagString(type));
-//        nms.setTag(compound);
-//        stack = CraftItemStack.asBukkitCopy(nms);
-//    }
-//
-//
-//    //C:\Program Files\Eclipse Adoptium\jdk-17.0.1.12-hotspot
-//    public static String getTag(ItemStack stack){
-//        if(Messager.getVersion() > 13){
-//            ItemMeta meta = stack.getItemMeta();
-//            PersistentDataContainer container = Objects.requireNonNull(meta).getPersistentDataContainer();
-//            if(container.has(Main.getInstance().AUCTION_ITEM, PersistentDataType.STRING)){
-//                return container.get(Main.getInstance().AUCTION_ITEM, PersistentDataType.STRING);
-//            }
-//            return null;
-//        }
-//        net.minecraft.server.v1_12_R1.ItemStack nms = CraftItemStack.asNMSCopy(stack);
-//        NBTTagCompound compound = (nms.hasTag()) ? nms.getTag() : new NBTTagCompound();
-//        return Objects.requireNonNull(compound).getString("yourTagHere");
-//    }
-//
-//    public static void addTag(JavaPlugin plugin, ItemStack stack, String key, String source){
-//        net.minecraft.server.v1_12_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(stack);
-//        NBTTagCompound compound = (nmsItemStack.hasTag()) ? nmsItemStack.getTag() : new NBTTagCompound();
-//        compound.set(key, new NBTTagString(source));
-//        nmsItemStack.setTag(compound);
-//        stack = CraftItemStack.asBukkitCopy(nmsItemStack);
-//    }
-//
-//    public static ItemStack addTag2(JavaPlugin plugin, ItemStack stack, String key, String source){
-//        net.minecraft.server.v1_12_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(stack);
-//        NBTTagCompound compound = (nmsItemStack.hasTag()) ? nmsItemStack.getTag() : new NBTTagCompound();
-//        compound.set(key, new NBTTagString(source));
-//        nmsItemStack.setTag(compound);
-//        return CraftItemStack.asBukkitCopy(nmsItemStack);
-//    }
-//
-//    public static String getTag(JavaPlugin plugin, ItemStack stack, String key){
-//        net.minecraft.server.v1_12_R1.ItemStack nmsItemStack = CraftItemStack.asNMSCopy(stack);
-//        NBTTagCompound compound = (nmsItemStack.hasTag()) ? nmsItemStack.getTag() : new NBTTagCompound();
-//        return compound.getString(key);
-//    }
-
-//    public static void addTag(JavaPlugin plugin, ItemStack stack, String key, String source)
-//            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
-//
-//        if(Messager.getVersion() > 13){
-//            ItemMeta meta = stack.getItemMeta();
-//            Objects.requireNonNull(meta).getPersistentDataContainer().set(Objects.requireNonNull(NamespacedKey.fromString(key, plugin))
-//                    , PersistentDataType.STRING, source);
-//            stack.setItemMeta(meta);
-//            return;
-//        }
-//        Logger logger = new Logger(getInstance());
-//        logger.warn(key + "|" + source);
-//        logger.warn("+");
-//        Class<?> nmsCraftItemStack = NMSUtils.getOBC("inventory.CraftItemStack");
-//        Class<?> nmsItemStack = NMSUtils.getNMS("ItemStack");
-//        Class<?> nmsNBTTagCompound = NMSUtils.getNMS("NBTTagCompound");
-//        Class<?> nmsNBTBase = NMSUtils.getNMS("NBTBase");
-//        Class<?> nmsNBTTagString = NMSUtils.getNMS("NBTTagString");
-//
-//        //get object for class net.minecraft.server.<version>.ItemStack
-//        Method asNMSCopyMethod = nmsCraftItemStack.getDeclaredMethod("asNMSCopy", ItemStack.class);
-//        Object objectNMSItemStack = asNMSCopyMethod.invoke(null, stack);
-//
-//        //get object for class net.minecraft.server.<version>.NBTTagCompound
-//        Method hasTagMethod = nmsItemStack.getDeclaredMethod("hasTag", null);
-//        Method getTagMethod = nmsItemStack.getDeclaredMethod("getTag", null);
-//        Object objectNMSNBTTagCompound = ((boolean)hasTagMethod.invoke(objectNMSItemStack, null))
-//                ? getTagMethod.invoke(objectNMSItemStack, null) : nmsNBTTagCompound.newInstance();
-//
-//        //set tag in net.minecraft.server.<version>.NBTTagCompound
-//        Method setMethod = nmsNBTTagCompound.getDeclaredMethod("set", String.class, nmsNBTBase);
-//        setMethod.invoke(objectNMSNBTTagCompound, key, nmsNBTTagString.getDeclaredConstructor(String.class).newInstance(source));
-//
-//        //set net.minecraft.server.<version>.NBTTagCompound in net.minecraft.server.<version>.ItemStack
-//        Method setTagMethod = nmsItemStack.getDeclaredMethod("setTag", nmsNBTTagCompound);
-//        setTagMethod.invoke(objectNMSItemStack, objectNMSNBTTagCompound);
-//
-//        //assign net.minecraft.server.<version>.ItemStack to stack
-//        Method asBukkitCopyMethod = nmsCraftItemStack.getDeclaredMethod("asBukkitCopy", nmsItemStack);
-//        stack = (ItemStack) asBukkitCopyMethod.invoke(null, objectNMSItemStack);
-//        logger.warn("++");
-//    }
-//
-//    public static String getTag(JavaPlugin plugin, ItemStack stack, String key)
-//            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
-//
-//        if(Messager.getVersion() > 13){
-//            ItemMeta meta = stack.getItemMeta();
-//            PersistentDataContainer container = Objects.requireNonNull(meta).getPersistentDataContainer();
-//            if(container.has(Objects.requireNonNull(NamespacedKey.fromString(key, plugin)), PersistentDataType.STRING)){
-//                return container.get(Objects.requireNonNull(NamespacedKey.fromString(key, plugin)), PersistentDataType.STRING);
-//            }
-//            return null;
-//        }
-//        Logger logger = new Logger(getInstance());
-//        logger.warn(key);
-//        logger.warn("+");
-//
-//        Class<?> nmsCraftItemStack = NMSUtils.getOBC("inventory.CraftItemStack");
-//        Class<?> nmsItemStack = NMSUtils.getNMS("ItemStack");
-//        Class<?> nmsNBTTagCompound = NMSUtils.getNMS("NBTTagCompound");
-//
-//        //get object for class net.minecraft.server.<version>.ItemStack
-//        Method asNMSCopyMethod = nmsCraftItemStack.getDeclaredMethod("asNMSCopy", ItemStack.class);
-//        Object objectNMSItemStack = asNMSCopyMethod.invoke(null, stack);
-//
-//        //get object for class net.minecraft.server.<version>.NBTTagCompound
-//        Method hasTagMethod = nmsItemStack.getDeclaredMethod("hasTag", null);
-//        Method getTagMethod = nmsItemStack.getDeclaredMethod("getTag", null);
-//        Object objectNMSNBTTagCompound = ((boolean)hasTagMethod.invoke(objectNMSItemStack, null))
-//                ? getTagMethod.invoke(objectNMSItemStack, null) : nmsNBTTagCompound.newInstance();
-//
-//        //get tag from net.minecraft.server.<version>.NBTTagCompound
-//        Method getStringMethod = nmsNBTTagCompound.getDeclaredMethod("getString", String.class);
-//        String s = (String) getStringMethod.invoke(objectNMSNBTTagCompound, key);
-//        logger.warn("++ | " + s);
-//        return s;
-//    }
 
 }

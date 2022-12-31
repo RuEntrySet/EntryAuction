@@ -32,7 +32,7 @@ dependencies {
             //compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
     shadow(files(library + "vault.jar"))
 
-    implementation("ru.entryset:api:3.2.2")
+    implementation("ru.entryset:api:3.2.4")
     implementation("redis.clients:jedis:4.2.0")
 
     compileOnly("me.clip:placeholderapi:2.10.9")
